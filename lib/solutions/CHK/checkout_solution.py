@@ -25,8 +25,4 @@ def checkout(skus):
             break
     return sumprice
 
-skus = 'AAAABBBCC'
-price = 130+50+30+45+2*20
-total = checkout(skus)
-print(price == total, total)
 
