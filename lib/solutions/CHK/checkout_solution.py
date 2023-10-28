@@ -66,9 +66,9 @@ def checkout(skus):
     # just try whether it has to be three different items..
     offernum = l // 3
     totalprice += offernum * 45
-    removeitem = offeritem * 3
-    groupitem = groupitem[removeitem-1:]
-    print(groupitem)
+    removeitem = offernum * 3
+    groupitem = groupitem[removeitem:]
+    #print(groupitem)
     for item in groupitem:
         totalprice += itemprice[item]           
 
@@ -79,15 +79,9 @@ def checkout(skus):
 
 
 def test():
-    items = 'XXYZ'
+    items = 'AASSXXYZ'
     price = 40
     total = checkout(items)
     print(price==total, price, total)
 
 test()
-
-
-
-
-
-
