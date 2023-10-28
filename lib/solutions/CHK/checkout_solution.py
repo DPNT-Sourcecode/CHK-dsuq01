@@ -3,7 +3,7 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 itemprice = {'A':50, 'B':30, 'C':20, 'D':15, 'E': 40}
-multibuy = {'A':[[5,200],[3,130]], 'B':[2,45]}
+multibuy = {'A':[[5,200],[3,130]], 'B':[[2,45]]}
 multifree = {'E': ['B', 2, 1]}
 
 def checkout(skus):
@@ -40,7 +40,9 @@ def checkout(skus):
     for item in itemlist:
         if item in multibuy:
             cond = multibuy[item]
-            for [num,discount] in cond:
+            for c in cond:
+                num = c[0]
+                discount = c[1]
                 offernum = itemcount[item] // num
                 totalprice += offernum * discount
                 itemcount[item] -= offernum * num
@@ -53,10 +55,10 @@ def checkout(skus):
 
 
 def test():
-    items = 'AAAAABBCDEE'
-    price = 200+30+20+15+2*40
+    items = 'AAAAAAAABBBCDE'
+    price = 200+130+45+30+20+15+40
     total = checkout(items)
     print(price==total, price, total)
 
-test()
+#test()
 
