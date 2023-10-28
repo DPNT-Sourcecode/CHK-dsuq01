@@ -3,8 +3,8 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 itemprice = {'A':50, 'B':30, 'C':20, 'D':15, 'E': 40}
-multibuy = {'A':[[5,200],[3,20]], 'B':[2,15]}
-multi_free = {'E': ['B', 2, 1]}
+multibuy = {'A':[[5,200],[3,130]], 'B':[2,45]}
+multifree = {'E': ['B', 2, 1]}
 
 def checkout(skus):
     totalprice = 0
@@ -19,28 +19,16 @@ def checkout(skus):
             else:
                 itemcount[item] = 1
                 itemlist.append(item) # to be iteratable
-        '''
-            totalprice += itemprice[item] # add price to sum
-            if item in multibuy: # count total number of multibuy items
-                if item in multibuy_count:
-                    multibuy_count[item] += 1
-                else:
-                    multibuy_count[item] = 1
-            if item in multi_free: # count total number of multifree items
-                if item in multifree_count:
-                    multifree_count[item] += 1
-                else:
-                    multifree_count[item] = 1
-                    '''
+    
         else:
             return -1
 
     for item in itemlist:
         if item in multifree:
             itemn = itemcount[item]
-            qnum = multi_free[item][1] # number of items to buy to qualify
-            freeitem = multi_free[item][0]
-            freenum = multifree_count[2] # number of items to go free per qualification for this offer
+            qnum = multifree[item][1] # number of items to buy to qualify
+            freeitem = multifree[item][0]
+            freenum = multifree[item][2] # number of items to go free per qualification for this offer
             # I should do a class ...
             offernum = itemn // qnum # number of items to go free
             reducenum = offernum * freenum
@@ -52,11 +40,23 @@ def checkout(skus):
     for item in itemlist:
         if item in multibuy:
             cond = multibuy[item]
-            for (num,discount) in cond:
+            for [num,discount] in cond:
                 offernum = itemcount[item] // num
+                totalprice += offernum * discount
+                itemcount[item] -= offernum * num
+            totalprice += itemcount[item] * itemprice[item]
+        else:
+            totalprice += itemcount[item] * itemprice[item]
 
 
+    return totalprice
 
-    return sumprice
 
+def test():
+    items = 'AAAAABBCDEE'
+    price = 200+30+20+15+2*40
+    total = checkout(items)
+    print(price==total, price, total)
+
+test()
 
