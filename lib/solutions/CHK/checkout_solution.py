@@ -64,14 +64,16 @@ def checkout(skus):
             while itemcount[item] > 0:
                 for j in range(i,len(group_buy)):
                     item2 = group_buy[j]
-                    if itemcount[item2] > 0:
-                        for k in range(k,len(group_buy)):
-                            item3 = group_buy[k]
-                            if itemcount[item3] > 0:
-                                totalprice += 45
-                                itemcount[item] -= 1
-                                itemcount[item2] -= 1
-                                itemcount[item3] -= 1
+                    if item2 in itemlist:
+                        if itemcount[item2] > 0:
+                            for k in range(j,len(group_buy)):
+                                item3 = group_buy[k]
+                                if item3 in itemlist:
+                                    if itemcount[item3] > 0:
+                                        totalprice += 45
+                                        itemcount[item] -= 1
+                                        itemcount[item2] -= 1
+                                        itemcount[item3] -= 1
                 # if there are no more than two other different items, break
                 diffitem = 0
                 for j in range(len(group_buy)):
@@ -93,10 +95,11 @@ def checkout(skus):
 
 
 def test():
-    items = 'FFFFFFRQ'
+    items = 'XYZ'
     price = 40
     total = checkout(items)
     print(price==total, price, total)
 
 test()
+
 
