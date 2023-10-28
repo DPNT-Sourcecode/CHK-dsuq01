@@ -16,9 +16,16 @@ def checkout(skus):
                     multibuy_count[item] += 1
                 else:
                     multibuy_count[item] = 1
-
+                if multibuy_count[item] == multibuy[item][0]: #enough for discount
+                    sumprice -= multibuy[item][1]
+                    multibuy_count[item] = 0 
             
         else:
             sumprice = -1
-    
+    return sumprice
+
+skus = 'AABBCCD'
+price = 100+45+2*20+15
+total = checkout(skus)
+print(price == total)
 
