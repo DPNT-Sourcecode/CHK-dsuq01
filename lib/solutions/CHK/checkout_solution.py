@@ -30,10 +30,11 @@ def checkout(skus):
             # I should do a class ...
             offernum = itemn // qnum # number of items to go free
             reducenum = offernum * freenum
-            if reducenum <= itemcount[freeitem]:
-                itemcount[freeitem] -= reducenum
-            else:
-                itemcount[freeitem] = 0
+            if freeitem in itemlist:
+                if reducenum <= itemcount[freeitem]:
+                    itemcount[freeitem] -= reducenum
+                else:
+                    itemcount[freeitem] = 0
             
     for item in itemlist:
         if item in multibuy:
@@ -57,4 +58,5 @@ def test():
     print(price==total, price, total)
 
 test()
+
 
