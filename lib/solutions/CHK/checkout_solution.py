@@ -2,8 +2,8 @@
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-itemprice = {'A':50, 'B':30, 'C':20, 'D':15}
-multibuy = {'A':[3,20], 'B':[2,15]}
+itemprice = {'A':50, 'B':30, 'C':20, 'D':15, 'E': 40}
+multibuy = {'A':[[5,50],[3,20]], 'B':[2,15]}
 
 def checkout(skus):
     sumprice = 0
@@ -24,5 +24,6 @@ def checkout(skus):
             sumprice = -1
             break
     return sumprice
+
 
 
