@@ -8,7 +8,7 @@ multibuy = {'A':[3,20], 'B':[2,15]}
 def checkout(skus):
     sumprice = 0
     multibuy_count = {}
-    for item in sku:
+    for item in skus:
         if item in itemprice: # check item exists
             sumprice += itemprice[item] # add price to sum
             if item in multibuy: # process discount
@@ -22,10 +22,11 @@ def checkout(skus):
             
         else:
             sumprice = -1
+            break
     return sumprice
 
-skus = 'AABBCCD'
-price = 100+45+2*20+15
+skus = 'AAAABBBCC'
+price = 130+50+30+45+2*20
 total = checkout(skus)
-print(price == total)
+print(price == total, total)
 
