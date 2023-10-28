@@ -59,9 +59,11 @@ def checkout(skus):
             if not (item in group_buy):
                 totalprice += itemcount[item] * itemprice[item]
             else:
-                groupitem.append(item)
+                for i in range(itemcount[item]):
+                    groupitem.append(item)
 
     print(groupitem)
+
 
             
 
@@ -72,12 +74,13 @@ def checkout(skus):
 
 
 def test():
-    items = 'XYZ'
+    items = 'XXYZ'
     price = 40
     total = checkout(items)
     print(price==total, price, total)
 
 test()
+
 
 
 
