@@ -5,7 +5,7 @@
 itemprice = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40, 'F': 10, 'G': 20, 'H': 10, 'I': 35, 'J': 60, 'K': 70, 'L': 90, 'M': 15, 'N': 40, 'O': 10, 'P': 50, 'Q': 30, 'R': 50, 'S': 20, 'T': 20, 'U': 40, 'V': 50, 'W': 20, 'X': 17, 'Y': 20, 'Z': 21}
 multifree = {'E':('B',2,1),'F':('F',2,1),'N':('M',3,1), 'R':('Q',3,1), 'U':('U',3,1)}
 multibuy = {'A':[(5,200),(3,130)], 'B':[(2,45)], 'H':[[10,80],[5,45]], 'K':[[2,120]], 'P':[[5,200]], 'Q':[[3,80]], 'V':[[3,130],[2,90]]}
-group_buy = ['X','S','T','Y','Z']
+group_buy = ['Z','S','T','Y','X']
 def checkout(skus):
     totalprice = 0
     itemcount = {} # count the number of every different item, so that when I deduct free items, the count does not go beyond 0
@@ -58,12 +58,13 @@ def checkout(skus):
         else:
             if not (item in group_buy):
                 totalprice += itemcount[item] * itemprice[item]
-            else:
-                for i in range(itemcount[item]):
-                    groupitem.append(item)
-
+            
+    for item in group_buy:
+        if item in itemlist:
+            for i in range(itemcount[item]):
+                groupitem.append(item)
     l = len(groupitem)
-    # just try whether it has to be three different items..
+    # it removes the most expensive three
     offernum = l // 3
     totalprice += offernum * 45
     removeitem = offernum * 3
@@ -79,9 +80,10 @@ def checkout(skus):
 
 
 def test():
-    items = 'AASSXXYZ'
-    price = 40
+    items = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    price = 1602
     total = checkout(items)
     print(price==total, price, total)
 
 test()
+
