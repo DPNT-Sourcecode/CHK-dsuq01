@@ -28,13 +28,23 @@ def checkout(skus):
             #freeitem = multifree[item][0]
             #freenum = multifree[item][2] # number of items to go free per qualification for this offer
             # I should do a class ...
-            offernum = itemn // qnum # number of items to go free
-            reducenum = offernum * freenum
-            if freeitem in itemlist:
-                if reducenum <= itemcount[freeitem]:
-                    itemcount[freeitem] -= reducenum
-                else:
-                    itemcount[freeitem] = 0
+            if freeitem == item:
+                qnum += 1
+                offernum = itemn // qnum # number of items to go free
+                reducenum = offernum * freenum
+                if freeitem in itemlist:
+                    if reducenum <= itemcount[freeitem]:
+                        itemcount[freeitem] -= reducenum
+                    else:
+                        itemcount[freeitem] = 0
+            else:
+                offernum = itemn // qnum # number of items to go free
+                reducenum = offernum * freenum
+                if freeitem in itemlist:
+                    if reducenum <= itemcount[freeitem]:
+                        itemcount[freeitem] -= reducenum
+                    else:
+                        itemcount[freeitem] = 0
             
     for item in itemlist:
         if item in multibuy:
@@ -52,9 +62,9 @@ def checkout(skus):
 
 
 def test():
-    items = 'FF'
-    price = 20
+    items = 'FFFFFF'
+    price = 40
     total = checkout(items)
     print(price==total, price, total)
 
-test()
+#test()
