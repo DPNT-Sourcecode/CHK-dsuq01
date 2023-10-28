@@ -1,3 +1,6 @@
 # noinspection PyShadowingBuiltins,PyUnusedLocal
+def sum_2int(a,b):
+    return a+b
+    
 def compute(x, y):
-    raise NotImplementedError()
+    return sum_2int(x,y)
