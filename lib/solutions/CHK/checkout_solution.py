@@ -25,5 +25,3 @@ def checkout(skus):
             break
     return sumprice
 
-
-
