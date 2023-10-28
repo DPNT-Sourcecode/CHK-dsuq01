@@ -10,6 +10,7 @@ def checkout(skus):
     totalprice = 0
     itemcount = {} # count the number of every different item, so that when I deduct free items, the count does not go beyond 0
     itemlist = []
+    groupitem = []
     for item in skus:
         if item in itemprice: # check item exists
             if item in itemcount:
@@ -57,35 +58,11 @@ def checkout(skus):
         else:
             if not (item in group_buy):
                 totalprice += itemcount[item] * itemprice[item]
+            else:
+                groupitem.append(item)
 
-    for i in range(len(group_buy)): # does any three have to be different three items? - assume it is - and assume deduce the cheapest three first
-        item = group_buy[i]
-        if item in itemlist:
-            while itemcount[item] > 0:
-                for j in range(i,len(group_buy)):
-                    item2 = group_buy[j]
-                    if item2 in itemlist:
-                        if itemcount[item2] > 0:
-                            for k in range(j,len(group_buy)):
-                                item3 = group_buy[k]
-                                if item3 in itemlist:
-                                    if itemcount[item3] > 0:
-                                        totalprice += 45
-                                        itemcount[item] -= 1
-                                        itemcount[item2] -= 1
-                                        itemcount[item3] -= 1
-                # if there are no more than two other different items, break
-                diffitem = 0
-                for j in range(len(group_buy)):
-                    if j != i:
-                        diffitem += 1
-                if diffitem < 2:
-                    break
+    print(groupitem)
 
-        for i in range(len(group_buy)): # sum the rest of the group
-            item = group_buy[i]
-            if item in itemlist:
-                totalprice += itemcount[item] * itemprice[item]
             
 
 
@@ -101,5 +78,6 @@ def test():
     print(price==total, price, total)
 
 test()
+
 
 
