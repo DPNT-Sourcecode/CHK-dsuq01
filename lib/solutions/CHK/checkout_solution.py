@@ -2,9 +2,9 @@
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-itemprice = {'A':50, 'B':30, 'C':20, 'D':15, 'E': 40}
+itemprice = {'A':50, 'B':30, 'C':20, 'D':15, 'E': 40, 'F': 10}
 multibuy = {'A':[(5,200),(3,130)], 'B':[(2,45)]}
-multifree = {'E': ['B', 2, 1]}
+multifree = {'E': ('B', 2, 1), 'F':('F',2,1)}
 
 def checkout(skus):
     totalprice = 0
@@ -24,9 +24,9 @@ def checkout(skus):
     for item in itemlist:
         if item in multifree:
             itemn = itemcount[item]
-            qnum = multifree[item][1] # number of items to buy to qualify
-            freeitem = multifree[item][0]
-            freenum = multifree[item][2] # number of items to go free per qualification for this offer
+            (freeitem, qnum, freenum) = multifree[item]#[1] # number of items to buy to qualify
+            #freeitem = multifree[item][0]
+            #freenum = multifree[item][2] # number of items to go free per qualification for this offer
             # I should do a class ...
             offernum = itemn // qnum # number of items to go free
             reducenum = offernum * freenum
@@ -52,11 +52,9 @@ def checkout(skus):
 
 
 def test():
-    items = 'E'
-    price = 200+130+45+30+20+15+40
+    items = 'FF'
+    price = 20
     total = checkout(items)
     print(price==total, price, total)
 
 test()
-
-
