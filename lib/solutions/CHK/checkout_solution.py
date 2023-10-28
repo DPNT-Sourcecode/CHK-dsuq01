@@ -58,7 +58,35 @@ def checkout(skus):
             if not (item in group_buy):
                 totalprice += itemcount[item] * itemprice[item]
 
-    for item in group_buy:
+    for i in range(len(group_buy)): # does any three have to be different three items? - assume it is - and assume deduce the cheapest three first
+        item = group_buy[i]
+        if item in itemlist:
+            while itemcount[item] > 0:
+                for j in range(i,len(group_buy)):
+                    item2 = group_buy[j]
+                    if itemcount[item2] > 0:
+                        for k in range(k,len(group_buy)):
+                            item3 = group_buy[k]
+                            if itemcount[item3] > 0:
+                                totalprice += 45
+                                itemcount[item] -= 1
+                                itemcount[item2] -= 1
+                                itemcount[item3] -= 1
+                # if there are no more than two other different items, break
+                diffitem = 0
+                for j in range(len(group_buy)):
+                    if j != i:
+                        diffitem += 1
+                if diffitem < 2:
+                    break
+
+        for i in range(len(group_buy)): # sum the rest of the group
+            item = group_buy[i]
+            if item in itemlist:
+                totalprice += itemcount[item] * itemprice[item]
+            
+
+
     
     
     return totalprice
@@ -71,3 +99,4 @@ def test():
     print(price==total, price, total)
 
 test()
+
