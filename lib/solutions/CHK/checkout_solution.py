@@ -63,14 +63,11 @@ def checkout(skus):
                     groupitem.append(item)
 
     l = len(groupitem)
-    for i in range(l):
-        for j in range(i,l):
-            for k in range(j,l):
-                if groupitem[i] != groupitem[j] and groupitem[i] != groupitem[k] + groupitem[j] != groupitem[k]:
-                    groupitem.pop(i)
-                    groupitem.pop(j)
-                    groupitem.pop(k)
-                    totalprice += 45
+    # just try whether it has to be three different items..
+    offernum = l // 3
+    totalprice += offernum * 45
+    removeitem = offeritem * 3
+    groupitem = groupitem[removeitem-1:]
     print(groupitem)
     for item in groupitem:
         totalprice += itemprice[item]           
@@ -88,6 +85,7 @@ def test():
     print(price==total, price, total)
 
 test()
+
 
 
 
